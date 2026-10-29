@@ -1,0 +1,235 @@
+{
+  "entities": {
+    "Employee": {
+      "title": "Employee",
+      "description": "HRMS Employee permanent personnel record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Internal document identifier" },
+        "employeeId": { "type": "string", "description": "Unique permanent Employee HRMS ID (e.g. EMP10001)", "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "employeeName": { "type": "string", "description": "Full name of the employee" },
+        "name": { "type": "string", "description": "Full name of the employee" },
+        "fatherName": { "type": "string", "description": "Father's Name" },
+        "motherName": { "type": "string", "description": "Mother's Name" },
+        "dateOfBirth": { "type": "string", "description": "Date of Birth (YYYY-MM-DD)" },
+        "dob": { "type": "string", "description": "Date of Birth (YYYY-MM-DD)" },
+        "gender": { "type": "string", "description": "Gender: MALE, FEMALE, OTHER" },
+        "mobileNumber": { "type": "string", "description": "Contact Mobile Number" },
+        "mobile": { "type": "string", "description": "Contact Mobile Number" },
+        "email": { "type": "string", "description": "Official email address" },
+        "designation": { "type": "string", "description": "Official Designation" },
+        "cadre": { "type": "string", "description": "State Cadre" },
+        "department": { "type": "string", "description": "Department name" },
+        "office": { "type": "string", "description": "Posting office" },
+        "district": { "type": "string", "description": "District" },
+        "block": { "type": "string", "description": "Block / Municipality" },
+        "gramPanchayat": { "type": "string", "description": "Gram Panchayat" },
+        "gp": { "type": "string", "description": "Gram Panchayat" },
+        "village": { "type": "string", "description": "Village" },
+        "joiningDate": { "type": "string", "description": "Date of Joining" },
+        "dateOfJoining": { "type": "string", "description": "Date of Joining" },
+        "postingPlace": { "type": "string", "description": "Current Posting Place" },
+        "currentPosting": { "type": "string", "description": "Current Posting Place" },
+        "employeeStatus": { "type": "string", "description": "Status (ACTIVE, INACTIVE, DEACTIVATED)" },
+        "status": { "type": "string", "description": "Status (ACTIVE, INACTIVE, DEACTIVATED)" },
+        "employmentType": { "type": "string", "description": "PERMANENT, CONTRACTUAL, PROBATION" },
+        "payLevel": { "type": "string", "description": "Pay Matrix Level" },
+        "basicPay": { "type": "number", "description": "Basic Pay Amount" },
+        "panNumber": { "type": "string", "description": "PAN Card Number" },
+        "gpfNpsNo": { "type": "string", "description": "GPF or PRAN NPS Number" },
+        "reportingOfficerName": { "type": "string", "description": "Reporting Officer Name" },
+        "ddoId": { "type": "string", "description": "DDO ID who manages or created this record" },
+        "createdByDDO": { "type": "string", "description": "Creator DDO ID" },
+        "createdAt": { "type": "string", "description": "Creation timestamp" },
+        "updatedAt": { "type": "string", "description": "Last update timestamp" }
+      },
+      "required": ["employeeId", "name", "department", "designation", "status"]
+    },
+    "User": {
+      "title": "User",
+      "description": "User account login credentials and profile",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "User document identifier" },
+        "employeeId": { "type": "string", "description": "Associated Employee ID" },
+        "username": { "type": "string", "description": "Login Username (HRMS ID)" },
+        "role": { "type": "string", "description": "User Role (DDO, EMPLOYEE, SUPER_ADMIN)" },
+        "name": { "type": "string", "description": "Display Name" },
+        "designation": { "type": "string", "description": "Designation" },
+        "department": { "type": "string", "description": "Department" },
+        "office": { "type": "string", "description": "Office" },
+        "district": { "type": "string", "description": "District" },
+        "status": { "type": "string", "description": "Account status" },
+        "createdAt": { "type": "string", "description": "Creation timestamp" },
+        "updatedAt": { "type": "string", "description": "Update timestamp" }
+      },
+      "required": ["employeeId", "username", "role", "name"]
+    },
+    "Transfer": {
+      "title": "Transfer",
+      "description": "Transfer application or administrative transfer order",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Transfer ID" },
+        "requestNumber": { "type": "string", "description": "Official Request Number" },
+        "employeeId": { "type": "string", "description": "Employee ID" },
+        "employeeName": { "type": "string", "description": "Employee Name" },
+        "designation": { "type": "string", "description": "Designation" },
+        "department": { "type": "string", "description": "Department" },
+        "currentOffice": { "type": "string", "description": "Current Posting Office" },
+        "transferType": { "type": "string", "description": "Transfer Type" },
+        "status": { "type": "string", "description": "Transfer status" },
+        "preferredDistrict": { "type": "string", "description": "Preferred District" },
+        "preferredOffice": { "type": "string", "description": "Preferred Office" },
+        "reason": { "type": "string", "description": "Reason for transfer" },
+        "createdAt": { "type": "string", "description": "Creation timestamp" },
+        "updatedAt": { "type": "string", "description": "Update timestamp" }
+      },
+      "required": ["id", "employeeId", "status"]
+    },
+    "TransferHistory": {
+      "title": "TransferHistory",
+      "description": "Historical transfer entry record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "History Record ID" },
+        "employeeId": { "type": "string", "description": "Employee ID" },
+        "orderNumber": { "type": "string", "description": "Official Govt Transfer Order Number" },
+        "fromOffice": { "type": "string", "description": "Previous Office" },
+        "toOffice": { "type": "string", "description": "New Office" },
+        "relievingDate": { "type": "string", "description": "Relieving Date" },
+        "joiningDate": { "type": "string", "description": "Joining Date at new station" },
+        "createdAt": { "type": "string", "description": "Creation timestamp" }
+      },
+      "required": ["id", "employeeId", "orderNumber"]
+    },
+    "Communication": {
+      "title": "Communication",
+      "description": "Official circular, order, memorandum, or direct communication",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Communication ID" },
+        "title": { "type": "string", "description": "Subject / Title" },
+        "referenceNo": { "type": "string", "description": "Dispatch or Reference Number" },
+        "type": { "type": "string", "description": "Type: CIRCULAR, NOTICE, ORDER, MEMO" },
+        "priority": { "type": "string", "description": "URGENT, NORMAL, CRITICAL" },
+        "content": { "type": "string", "description": "Full Message Body" },
+        "targetAudience": { "type": "string", "description": "ALL, DEPARTMENT, INDIVIDUAL" },
+        "targetEmployeeIds": { "type": "array", "description": "List of targeted employee IDs" },
+        "status": { "type": "string", "description": "PUBLISHED, DRAFT, ARCHIVED" },
+        "issuedBy": { "type": "string", "description": "Issuing Authority Name" },
+        "createdAt": { "type": "string", "description": "Creation timestamp" }
+      },
+      "required": ["id", "title", "content", "status"]
+    },
+    "Document": {
+      "title": "Document",
+      "description": "HRMS uploaded document or service record attachment",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Document ID" },
+        "employeeId": { "type": "string", "description": "Employee ID" },
+        "documentName": { "type": "string", "description": "Document Name" },
+        "documentType": { "type": "string", "description": "Type (e.g. Appointment Letter, LPC, ID Proof)" },
+        "fileUrl": { "type": "string", "description": "Cloud storage URL or permanent reference" },
+        "uploadedBy": { "type": "string", "description": "User or DDO who uploaded" },
+        "createdAt": { "type": "string", "description": "Upload timestamp" }
+      },
+      "required": ["id", "employeeId", "documentName"]
+    },
+    "Payslip": {
+      "title": "Payslip",
+      "description": "Monthly pay slip record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Payslip unique ID" },
+        "employeeId": { "type": "string", "description": "Employee ID" },
+        "month": { "type": "number", "description": "Month (1-12)" },
+        "year": { "type": "number", "description": "Year (e.g. 2026)" },
+        "basicPay": { "type": "number", "description": "Basic Pay" },
+        "da": { "type": "number", "description": "Dearness Allowance" },
+        "hra": { "type": "number", "description": "House Rent Allowance" },
+        "grossSalary": { "type": "number", "description": "Gross Salary" },
+        "netSalary": { "type": "number", "description": "Net Take-Home Salary" },
+        "status": { "type": "string", "description": "GENERATED, DISBURSED, PAID" },
+        "createdAt": { "type": "string", "description": "Generation timestamp" }
+      },
+      "required": ["id", "employeeId", "month", "year", "netSalary"]
+    },
+    "LeaveRecord": {
+      "title": "LeaveRecord",
+      "description": "Employee leave application and sanction entry",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Leave Application ID" },
+        "employeeId": { "type": "string", "description": "Employee ID" },
+        "leaveType": { "type": "string", "description": "CASUAL, EARNED, MEDICAL, MATERNITY, PATERNITY" },
+        "startDate": { "type": "string", "description": "Leave From Date" },
+        "endDate": { "type": "string", "description": "Leave To Date" },
+        "totalDays": { "type": "number", "description": "Number of days" },
+        "reason": { "type": "string", "description": "Reason for leave" },
+        "status": { "type": "string", "description": "PENDING, APPROVED, REJECTED" },
+        "approvedBy": { "type": "string", "description": "Approving Officer / DDO ID" },
+        "createdAt": { "type": "string", "description": "Application timestamp" }
+      },
+      "required": ["id", "employeeId", "leaveType", "startDate", "endDate", "status"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "HRMS administrative notification alert",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Notification ID" },
+        "employeeId": { "type": "string", "description": "Target Employee ID (or ALL)" },
+        "title": { "type": "string", "description": "Alert Title" },
+        "message": { "type": "string", "description": "Alert message body" },
+        "type": { "type": "string", "description": "INFO, SUCCESS, WARNING, ACTION_REQUIRED" },
+        "isRead": { "type": "boolean", "description": "Read flag" },
+        "createdAt": { "type": "string", "description": "Creation timestamp" }
+      },
+      "required": ["id", "title", "message"]
+    }
+  },
+  "firestore": {
+    "/employees/{employeeId}": {
+      "schema": "Employee",
+      "description": "Permanent collection of all HRMS employee records"
+    },
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User login accounts and profiles"
+    },
+    "/ddoUsers/{ddoId}": {
+      "schema": "User",
+      "description": "Authenticated DDO accounts"
+    },
+    "/transfers/{transferId}": {
+      "schema": "Transfer",
+      "description": "Transfer applications and orders"
+    },
+    "/transferHistory/{historyId}": {
+      "schema": "TransferHistory",
+      "description": "Historical transfer records"
+    },
+    "/communications/{commId}": {
+      "schema": "Communication",
+      "description": "Official government circulars, orders, and individual employee communications"
+    },
+    "/documents/{docId}": {
+      "schema": "Document",
+      "description": "HRMS uploaded employee documents metadata"
+    },
+    "/payslips/{payslipId}": {
+      "schema": "Payslip",
+      "description": "Monthly employee salary pay slips"
+    },
+    "/leaveRecords/{leaveId}": {
+      "schema": "LeaveRecord",
+      "description": "Leave applications and sanction records"
+    },
+    "/notifications/{notifId}": {
+      "schema": "Notification",
+      "description": "Administrative notifications and alerts"
+    }
+  }
+}

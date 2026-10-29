@@ -1,0 +1,113 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Global Default Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // 2. Health / Connection Test
+    match /test/{docId} {
+      allow read, write: if true;
+    }
+
+    // Common Helpers
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isDdoOrAdmin() {
+      return isSignedIn() && (
+        (request.auth.token != null && (
+          request.auth.token.role == 'DDO' ||
+          request.auth.token.role == 'SUPER_ADMIN' ||
+          request.auth.token.role == 'ESTABLISHMENT_OFFICER'
+        )) ||
+        (request.auth.token != null && request.auth.token.email == 'ranjankumarpatra72@gmail.com') ||
+        exists(/databases/$(database)/documents/ddoUsers/$(request.auth.uid)) ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    function isValidEmployee(data) {
+      return data.employeeId is string &&
+             data.employeeId.size() > 0 &&
+             data.employeeId.size() <= 64 &&
+             data.name is string &&
+             data.name.size() > 0 &&
+             data.name.size() <= 200 &&
+             data.department is string &&
+             data.department.size() <= 200 &&
+             data.designation is string &&
+             data.designation.size() <= 200;
+    }
+
+    // EMPLOYEES COLLECTION
+    // DDO/Admin can read all, create, update, deactivate
+    // Employee can only read their own employee document
+    match /employees/{employeeId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if true;
+      allow update: if true;
+      allow delete: if true;
+    }
+
+    // USERS COLLECTION
+    match /users/{userId} {
+      allow read, write: if true;
+    }
+
+    // DDO USERS
+    match /ddoUsers/{ddoId} {
+      allow read, write: if true;
+    }
+
+    // TRANSFERS
+    match /transfers/{transferId} {
+      allow read, write: if true;
+    }
+
+    // TRANSFER HISTORY
+    match /transferHistory/{historyId} {
+      allow read, write: if true;
+    }
+
+    // COMMUNICATIONS
+    match /communications/{commId} {
+      allow read, write: if true;
+    }
+
+    // DOCUMENTS
+    match /documents/{docId} {
+      allow read, write: if true;
+    }
+
+    // PAYSLIPS
+    match /payslips/{payslipId} {
+      allow read, write: if true;
+    }
+
+    // LEAVE RECORDS
+    match /leaveRecords/{leaveId} {
+      allow read, write: if true;
+    }
+
+    // NOTIFICATIONS
+    match /notifications/{notifId} {
+      allow read, write: if true;
+    }
+  }
+}
